@@ -1,0 +1,42 @@
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center; /* Centra el texto */
+}
+
+h1 {
+  color: #333;
+  font-size: 40px; /* Tamaño de fuente más grande */
+  margin-bottom: 10px; /* Espaciado inferior para separar del botón */
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#contador {
+  font-size: 18px;
+  color: #555;
+  margin-top: 20px;
+}

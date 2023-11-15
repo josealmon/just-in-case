@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Temporizador Bomba Atomica</title>
+    <link rel="stylesheet" type="text/css" href="/styles.css" />
+  </head>
+  <body>
+    <h1>Temporizador Bomba Atomica</h1>
+    <button onclick="activarTimer()">Activar Temporizador</button>
+    <button onclick="resetearTimer()">Resetear Temporizador</button>
+    <p id="contador">Tiempo restante: 00:01:00</p>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+
+      // Maneja la actualización del tiempo restante
+      socket.on("tiempo-restante", (segundosRestantes) => {
+        document.getElementById(
+          "contador"
+        ).innerText = `Tiempo restante: ${formatTiempo(segundosRestantes)}`;
+      });
+
+      // Función para activar el temporizador
+      function activarTimer() {
+        fetch("/activar-timer")
+          .then((response) => response.text())
+          .then((message) => console.log(message))
+          .catch((error) => console.error(error));
+      }
+
+      // Función para resetear el temporizador
+      function resetearTimer() {
+        fetch("/resetear-timer")
+          .then((response) => response.text())
+          .then((message) => {
+            console.log(message);
+            // Al resetear, actualiza el contador en el cliente
+            document.getElementById("contador").innerText =
+              "Tiempo restante: 00:01:00";
+          })
+          .catch((error) => console.error(error));
+      }
+
+      // Función para formatear el tiempo en HH:mm:ss
+      function formatTiempo(segundos) {
+        const horas = Math.floor(segundos / 3600);
+        const minutos = Math.floor((segundos % 3600) / 60);
+        const segundosRestantes = segundos % 60;
+
+        return `${horas.toString().padStart(2, "0")}:${minutos
+          .toString()
+          .padStart(2, "0")}:${segundosRestantes.toString().padStart(2, "0")}`;
+      }
+    </script>
+  </body>
+</html>
